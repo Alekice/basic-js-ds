@@ -9,40 +9,47 @@ const { NotImplementedError } = require('../extensions/index.js');
 class BinarySearchTree {
   treeRoot = null;
 
-  createNewBranch(element, value) {
+  createNewBranch(element, data) {
     if (!element) {
       return {
-        value: value,
+        data: data,
         parent: null,
         left: null,
         right: null
       };
-    } else if (element.value === value) {
+    } else if (element.data === data) {
       return element;
-    } else if (value < element.value) {
-      element.left = this.createNewBranch(element.left, value);
+    } else if (data < element.data) {
+      element.left = this.createNewBranch(element.left, data);
       return element;
-    } else if (value > element.value) {
-      element.right = this.createNewBranch(element.right, value);
+    } else if (data > element.data) {
+      element.right = this.createNewBranch(element.right, data);
       return element;
     }
   }
 
   root() {
-    if (!this.treeRoot) return null;
-    if (this.treeRoot) {
-      this.data = this.treeRoot.value;
-    }
-    return this;   
+    return this.treeRoot;   
   }
 
   add(data) {
     this.treeRoot = this.createNewBranch(this.treeRoot, data);
   }
 
-  has(/* data */) {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+  has(data) {
+    return searchTree(this.treeRoot, data);
+
+    function searchTree(element, data) {
+      if (!element) {
+        return false;
+      } else if (element.data === data) {
+        return true;
+      } else if (data < element.data) {
+        return searchTree(element.left, data);
+      } else if (data > element.data) {
+        return searchTree(element.right, data);
+      }
+    }
   }
 
   find(/* data */) {
