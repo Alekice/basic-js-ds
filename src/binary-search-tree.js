@@ -20,7 +20,6 @@ class BinarySearchTree {
       if (!element) {
         return {
           data: data,
-          parent: null,
           left: null,
           right: null
         };
@@ -69,7 +68,7 @@ class BinarySearchTree {
   }
 
   remove(data) {
-    return removeNode(this.treeRoot, data);
+    this.treeRoot = removeNode(this.treeRoot, data);
     
     function removeNode(node, data) {
       if (!node) {
@@ -89,15 +88,15 @@ class BinarySearchTree {
           current = current.left;
         }
         node.data = current.data;
-        node.right = removeNode(node.right, current.data);
+        node.right = removeNode(node.right, current.data);        
         
       } else if (data < node.data) {
         node.left = removeNode(node.left, data);
-        return node;
       } else if (data > node.data) {
         node.right = removeNode(node.right, data);
-        return node;
       }
+      
+      return node;
     }
   }
 
